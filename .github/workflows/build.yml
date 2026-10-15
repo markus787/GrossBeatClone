@@ -1,0 +1,15 @@
+name: Build
+on:
+  workflow_dispatch:
+  push:
+jobs:
+  build:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+      - run: cmake -B build -G "Visual Studio 17 2022" -A x64
+      - run: cmake --build build --config Release
+      - uses: actions/upload-artifact@v4
+        with:
+          name: GrossBeatClone-VST3
+          path: build/GrossBeatClone_artefacts/Release/VST3/GrossBeatClone.vst3
